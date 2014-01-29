@@ -21,7 +21,7 @@ echo "flashing FILESYSTEM"
 cd ~/poky/build/tmp/deploy/images/beaglebone
 tar -x -C /media/alexander/beagroot1 -f core-image-minimal-beaglebone.tar.bz2
 tar -x -C /media/alexander/beagroot1 -f modules-beaglebone.tgz
-#cp zImage /media/alexander/beagroot1/boot
+cp zImage /media/alexander/beagroot1/boot
 
 echo "SYNCING"
 sync
