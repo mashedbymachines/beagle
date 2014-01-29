@@ -1,21 +1,21 @@
 clear
 
 echo "erasing BOOT"
-cd /media/alexander/BEAGBOOT
-rm -rf *
+rm -rf  /media/alexander/BEAGBOOT1/*
 
 echo "erasing FILESYSTEM"
-cd /media/alexander/beagroot1
-rm -rf *
+rm -rf  /media/alexander/beagroot1/*
 
 echo "flashing BOOT"
 cd ~/poky/build/tmp/deploy/images/beaglebone
-cp MLO /media/alexander/BEAGBOOT
-cp u-boot.img /media/alexander/BEAGBOOT
-cp zImage /media/alexander/BEAGBOOT
-mkdir dtbs
-cp zImage-am335x-bone.dtb /media/alexander/BEAGBOOT/dtbs/am335x-bone.dtb
-cp uEnv.txt /media/alexander/BEAGBOOT
+cp MLO /media/alexander/BEAGBOOT1
+cp u-boot.img /media/alexander/BEAGBOOT1
+cp zImage /media/alexander/BEAGBOOT1
+cp uEnv.txt /media/alexander/BEAGBOOT1
+
+mkdir /media/alexander/BEAGBOOT1/dtbs
+cp zImage-am335x-bone.dtb /media/alexander/BEAGBOOT1/dtbs/am335x-bone.dtb
+
 
 echo "flashing FILESYSTEM"
 cd ~/poky/build/tmp/deploy/images/beaglebone
@@ -27,7 +27,7 @@ echo "SYNCING"
 sync
 
 echo "UNMOUNTING"
-umount /media/alexander/BEAGBOOT
+umount /media/alexander/BEAGBOOT1
 umount /media/alexander/beagroot1
 umount /media/alexander/beagroot2
 echo "DONE"
