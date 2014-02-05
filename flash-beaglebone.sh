@@ -1,35 +1,75 @@
+#!/bin/bash
+
+#Paths
+BUILDPATH="/home/$LOGNAME/poky/build/tmp/deploy/images/beaglebone"
+MOUNTPATH="/media/$LOGNAME"
+SCRIPTPATH=$(pwd)
+
+
 clear
+cd $MOUNTPATH
+
+
+# --- Find BOOTPATH
+echo "ENTER NAME OF BOOT PARTITION. AVALIABLE MOUNTS:"
+ls
+read BOOTNAME
+
+BOOTPATH="/media/$LOGNAME/$BOOTNAME"
+
+if [ ! -d "$BOOTPATH" ]; then
+  echo "$BOOTPATH does not exist. Aborting"
+  exit 0
+fi
+
+echo -e "Boot path OK\n\n"
+
+
+# --- Find ROOTPATH
+echo "ENTER NAME OF ROOT PARTITION. AVALIABLE MOUNTS:"
+ls
+read ROOTNAME
+
+ROOTPATH="/media/$LOGNAME/$ROOTNAME"
+
+if [ ! -d "$ROOTPATH" ]; then
+  echo "$ROOTPATH does not exist. Aborting"
+  exit 0
+fi
+
+echo -e "Boot path OK\n\n"
+cd $SCRIPTPATH
+echo -e "----------------\n\n"
+sudo echo ""
+
+# --- FLASHING
 
 echo "erasing BOOT"
-rm -rf  /media/alexander/BEAGBOOT1/*
+sudo rm -rf  $BOOTPATH/*
 
 echo "erasing FILESYSTEM"
-rm -rf  /media/alexander/beagroot1/*
+sudo rm -rf  $ROOTPATH/*
 
 echo "flashing BOOT"
-cd ~/poky/build/tmp/deploy/images/beaglebone
-cp MLO /media/alexander/BEAGBOOT1
-cp u-boot.img /media/alexander/BEAGBOOT1
-cp zImage /media/alexander/BEAGBOOT1
-cp uEnv.txt /media/alexander/BEAGBOOT1
+sudo cp $BUILDPATH/MLO $BOOTPATH
+sudo cp $BUILDPATH/u-boot.img $BOOTPATH
+sudo cp $BUILDPATH/zImage $BOOTPATH
+sudo cp uEnv.txt $BOOTPATH
 
-mkdir /media/alexander/BEAGBOOT1/dtbs
-cp zImage-am335x-bone.dtb /media/alexander/BEAGBOOT1/dtbs/am335x-bone.dtb
-
+sudo mkdir $BOOTPATH/dtbs
+sudo cp $BUILDPATH/zImage-am335x-bone.dtb $BOOTPATH/dtbs/am335x-bone.dtb
 
 echo "flashing FILESYSTEM"
-cd ~/poky/build/tmp/deploy/images/beaglebone
-tar -x -C /media/alexander/beagroot1 -f core-image-minimal-beaglebone.tar.bz2
-tar -x -C /media/alexander/beagroot1 -f modules-beaglebone.tgz
-cp zImage /media/alexander/beagroot1/boot
+sudo tar -x -C $ROOTPATH -f $BUILDPATH/core-image-minimal-beaglebone.tar.bz2
+sudo tar -x -C $ROOTPATH -f $BUILDPATH/modules-beaglebone.tgz
+sudo cp $BUILDPATH/zImage $ROOTPATH/boot
 
-echo "SYNCING"
+echo "SYNCING SDCARD WRITES"
 sync
 
-echo "UNMOUNTING"
-umount /media/alexander/BEAGBOOT1
-umount /media/alexander/beagroot1
-umount /media/alexander/beagroot2
+echo "UNMOUNTING SDCARD"
+umount $BOOTPATH
+umount $ROOTPATH
 echo "DONE"
 
 
