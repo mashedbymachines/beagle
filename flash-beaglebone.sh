@@ -65,7 +65,7 @@ sudo tar -x -C $ROOTPATH -f $BUILDPATH/modules-beaglebone.tgz
 sudo cp $BUILDPATH/zImage $ROOTPATH/boot
 
 echo "SYNCING SDCARD WRITES"
-sync
+sudo sync
 
 echo "UNMOUNTING SDCARD"
 umount $BOOTPATH
