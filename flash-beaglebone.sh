@@ -60,7 +60,7 @@ sudo mkdir $BOOTPATH/dtbs
 sudo cp $BUILDPATH/zImage-am335x-bone.dtb $BOOTPATH/dtbs/am335x-bone.dtb
 
 echo "flashing FILESYSTEM"
-sudo tar -x -C $ROOTPATH -f $BUILDPATH/core-image-minimal-beaglebone.tar.bz2
+sudo tar -x -C $ROOTPATH -f $BUILDPATH/core-image-x11-beaglebone.tar.bz2
 sudo tar -x -C $ROOTPATH -f $BUILDPATH/modules-beaglebone.tgz
 sudo cp $BUILDPATH/zImage $ROOTPATH/boot
 
