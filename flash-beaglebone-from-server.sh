@@ -67,7 +67,7 @@ sudo cp $SCRIPTPATH/download/u-boot.img $BOOTPATH
 sudo cp $SCRIPTPATH/download/zImage $BOOTPATH
 sudo cp uEnv.txt $BOOTPATH
 
-sudo mkdir $SCRIPTPATH/download/dtbs
+sudo mkdir $BOOTPATH/dtbs
 sudo cp $SCRIPTPATH/download/zImage-am335x-bone.dtb $BOOTPATH/dtbs/am335x-bone.dtb
 
 echo "flashing FILESYSTEM"
