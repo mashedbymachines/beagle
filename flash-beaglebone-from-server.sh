@@ -8,15 +8,21 @@ IMAGENAME="core-image-x11-beaglebone.tar.gz"
 SERVERNAME="yocto"
 
 clear
-echo "Log in to yocto server with username: "
-read SCPNAME
 
-REMOTEPATH="/home/$SCPNAME/poky/build/tmp/deploy/images/beaglebone"
+read -p "Do you want to download new files to flash? (Y/n)" -n 1 -r
+echo
+if [[ $REPLY =~ ^[Yy]$ ]]
+then
+	echo "Log in to yocto server with username: "
+	read SCPNAME
 
-scp $SCPNAME@$SERVERNAME:"$REMOTEPATH/$IMAGENAME $REMOTEPATH/zImage-am335x-bone.dtb  $REMOTEPATH/modules-beaglebone.tgz  $REMOTEPATH/MLO  $REMOTEPATH/zImage $REMOTEPATH/u-boot.img" $SCRIPTPATH/download
+	REMOTEPATH="/home/$SCPNAME/poky/build/tmp/deploy/images/beaglebone"
+
+
+    scp $SCPNAME@$SERVERNAME:"$REMOTEPATH/$IMAGENAME $REMOTEPATH/zImage-am335x-bone.dtb  $REMOTEPATH/modules-beaglebone.tgz  $REMOTEPATH/MLO  $REMOTEPATH/zImage $REMOTEPATH/u-boot.img" $SCRIPTPATH/download
 
 echo "Download completed."
-
+fi
 
 cd $MOUNTPATH
 
