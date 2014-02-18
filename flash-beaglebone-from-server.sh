@@ -5,9 +5,10 @@ BUILDPATH="/home/$LOGNAME/poky/build/tmp/deploy/images/beaglebone"
 MOUNTPATH="/media/$LOGNAME"
 SCRIPTPATH=$(pwd)
 IMAGENAME="core-image-x11-beaglebone.tar.gz"
-SERVERNAME="yocto"
+SERVERNAME="yocto.tritech.se"
 
 clear
+
 
 read -p "Do you want to download new files to flash? (Y/n)" -n 1 -r
 echo
@@ -17,9 +18,9 @@ then
 	read SCPNAME
 
 	REMOTEPATH="/home/$SCPNAME/poky/build/tmp/deploy/images/beaglebone"
+	echo "Fetching files from" $REMOTEPATH
 
-
-    scp $SCPNAME@$SERVERNAME:"$REMOTEPATH/$IMAGENAME $REMOTEPATH/zImage-am335x-bone.dtb  $REMOTEPATH/modules-beaglebone.tgz  $REMOTEPATH/MLO  $REMOTEPATH/zImage $REMOTEPATH/u-boot.img" $SCRIPTPATH/download
+    	scp $SCPNAME@$SERVERNAME:"$REMOTEPATH/$IMAGENAME $REMOTEPATH/zImage-am335x-bone.dtb  $REMOTEPATH/modules-beaglebone.tgz  $REMOTEPATH/MLO  $REMOTEPATH/zImage $REMOTEPATH/u-boot.img" $SCRIPTPATH/download
 
 echo "Download completed."
 fi
