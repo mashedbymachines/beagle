@@ -1,7 +1,6 @@
 #!/bin/bash
 
 #Paths
-BUILDPATH="/home/$LOGNAME/poky/raspberrypi/tmp/deploy/images/raspberrypi"
 MOUNTPATH="/dev"
 SCRIPTPATH=$(pwd)
 IMAGENAME="core-image-x11-raspberrypi.rpi-sdimg"
@@ -19,12 +18,6 @@ then
 
 	REMOTEPATH="/home/$SCPNAME/poky/raspberrypi/tmp/deploy/images/raspberrypi"
 	echo "Fetching files from" $REMOTEPATH
-	
-	if [ -d download ]; then
-     	else
-		echo "Creating directory /download"
-		mkdir download
-	fi
 
     	scp $SCPNAME@$SERVERNAME:$REMOTEPATH/$IMAGENAME $SCRIPTPATH/download
 
@@ -35,7 +28,10 @@ cd $MOUNTPATH
 
 
 # --- Find BOOTPATH
-echo "ENTER NAME OF SDCARD (typically sdb or sdc). AVALIABLE DEVICES:"
+echo "ENTER NAME OF SDCARD (typically sdb or sdc, NOT sda!!!)"
+echo ""
+echo "IMPORTANT: the entire device will be overwritten. Make sure that you know the name of the sdcart device"
+echo "AVALIABLE DEVICES:"
 ls | grep sd
 read BOOTNAME
 
@@ -45,7 +41,6 @@ BOOTPATH="/dev/$BOOTNAME"
 
 echo "flashing SDCARD (This takes a long time)"
 sudo dd if=$SCRIPTPATH/download/$IMAGENAME of=$BOOTPATH
-
 
 echo "SYNCING SDCARD WRITES"
 sudo sync
