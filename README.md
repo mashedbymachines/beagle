@@ -1,4 +1,6 @@
-beaglebone
+yocto-flash
 ==========
 
-personal beaglebone flashing
+personal yocto build flashing
+
+contains flash script for beaglebone and raspberrypi
