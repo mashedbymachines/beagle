@@ -4,7 +4,7 @@
 BUILDPATH="/home/$LOGNAME/poky/build/tmp/deploy/images/beagleboardxm"
 MOUNTPATH="/media/$LOGNAME"
 SCRIPTPATH=$(pwd)
-IMAGENAME="core-image-x11-beagleboard.tar.gz"
+IMAGENAME="core-image-x11-beagleboard.tar.bz2"
 SERVERNAME="yocto.tritech.se"
 
 clear
@@ -75,7 +75,7 @@ sudo cp $SCRIPTPATH/download/board/zImage $BOOTPATH
 sudo cp uEnv.txt $BOOTPATH
 
 sudo mkdir $BOOTPATH/dtbs
-sudo cp $SCRIPTPATH/download/board/zImage-omap3-beagle.dtb $BOOTPATH/dtbs/omap3-beagle.dtb
+sudo cp $SCRIPTPATH/download/board/zImage-omap3-beagle-xm.dtb $BOOTPATH/dtbs/omap3-beagle-xm.dtb
 
 echo "flashing FILESYSTEM"
 sudo tar -x -C $ROOTPATH -f $SCRIPTPATH/download/board/$IMAGENAME
