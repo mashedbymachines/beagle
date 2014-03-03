@@ -19,7 +19,7 @@ then
 	REMOTEPATH="/home/$SCPNAME/poky/raspberrypi/tmp/deploy/images/raspberrypi"
 	echo "Fetching files from" $REMOTEPATH
 
-    	scp $SCPNAME@$SERVERNAME:$REMOTEPATH/$IMAGENAME $SCRIPTPATH/download
+    	scp $SCPNAME@$SERVERNAME:$REMOTEPATH/$IMAGENAME $SCRIPTPATH/download/pi
 
 echo "Download completed."
 fi
@@ -40,7 +40,7 @@ BOOTPATH="/dev/$BOOTNAME"
 # --- FLASHING
 
 echo "flashing SDCARD (This takes a long time)"
-sudo dd if=$SCRIPTPATH/download/$IMAGENAME of=$BOOTPATH
+sudo dd if=$SCRIPTPATH/download/pi/$IMAGENAME of=$BOOTPATH
 
 echo "SYNCING SDCARD WRITES"
 sudo sync
