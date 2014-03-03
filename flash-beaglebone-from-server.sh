@@ -20,7 +20,7 @@ then
 	REMOTEPATH="/home/$SCPNAME/poky/build/tmp/deploy/images/beaglebone"
 	echo "Fetching files from" $REMOTEPATH
 
-    	scp $SCPNAME@$SERVERNAME:"$REMOTEPATH/$IMAGENAME $REMOTEPATH/zImage-am335x-bone.dtb  $REMOTEPATH/modules-beaglebone.tgz  $REMOTEPATH/MLO  $REMOTEPATH/zImage $REMOTEPATH/u-boot.img" $SCRIPTPATH/download
+    	scp $SCPNAME@$SERVERNAME:"$REMOTEPATH/$IMAGENAME $REMOTEPATH/zImage-am335x-bone.dtb  $REMOTEPATH/modules-beaglebone.tgz  $REMOTEPATH/MLO  $REMOTEPATH/zImage $REMOTEPATH/u-boot.img" $SCRIPTPATH/download/bone
 
 echo "Download completed."
 fi
@@ -69,18 +69,18 @@ echo "erasing FILESYSTEM"
 sudo rm -rf  $ROOTPATH/*
 
 echo "flashing BOOT"
-sudo cp $SCRIPTPATH/download/MLO $BOOTPATH
-sudo cp $SCRIPTPATH/download/u-boot.img $BOOTPATH
-sudo cp $SCRIPTPATH/download/zImage $BOOTPATH
+sudo cp $SCRIPTPATH/download/bone/MLO $BOOTPATH
+sudo cp $SCRIPTPATH/download/bone/u-boot.img $BOOTPATH
+sudo cp $SCRIPTPATH/download/bone/zImage $BOOTPATH
 sudo cp uEnv.txt $BOOTPATH
 
 sudo mkdir $BOOTPATH/dtbs
-sudo cp $SCRIPTPATH/download/zImage-am335x-bone.dtb $BOOTPATH/dtbs/am335x-bone.dtb
+sudo cp $SCRIPTPATH/download/bone/zImage-am335x-bone.dtb $BOOTPATH/dtbs/am335x-bone.dtb
 
 echo "flashing FILESYSTEM"
-sudo tar -x -C $ROOTPATH -f $SCRIPTPATH/download/$IMAGENAME
-sudo tar -x -C $ROOTPATH -f $SCRIPTPATH/download/modules-beaglebone.tgz
-sudo cp $SCRIPTPATH/download/zImage $ROOTPATH/boot
+sudo tar -x -C $ROOTPATH -f $SCRIPTPATH/download/bone/$IMAGENAME
+sudo tar -x -C $ROOTPATH -f $SCRIPTPATH/download/bone/modules-beaglebone.tgz
+sudo cp $SCRIPTPATH/download/bone/zImage $ROOTPATH/boot
 
 echo "SYNCING SDCARD WRITES"
 sudo sync
