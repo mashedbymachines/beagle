@@ -71,17 +71,18 @@ sudo rm -rf  $ROOTPATH/*
 echo "flashing BOOT"
 sudo cp $SCRIPTPATH/download/board/MLO $BOOTPATH
 sudo cp $SCRIPTPATH/download/board/u-boot.img $BOOTPATH
-sudo cp $SCRIPTPATH/download/board/zImage $BOOTPATH
-sudo cp uEnv.txt $BOOTPATH
+sudo cp $SCRIPTPATH/download/board/uImage $BOOTPATH
+sudo cp uEnv-beagleboard.txt $BOOTPATH/uEnv.txt
 
 sudo mkdir $BOOTPATH/dtbs
-sudo cp $SCRIPTPATH/download/board/zImage-omap3-beagle-xm.dtb $BOOTPATH/dtbs/omap3-beagle-xm.dtb
+sudo cp $SCRIPTPATH/download/board/uImage-omap3-beagle-xm.dtb $BOOTPATH/dtbs/omap3-beagle-xm.dtb
 
 echo "flashing FILESYSTEM"
 sudo tar -x -C $ROOTPATH -f $SCRIPTPATH/download/board/$IMAGENAME
 sudo tar -x -C $ROOTPATH -f $SCRIPTPATH/download/board/modules-beagleboard.tgz
-sudo cp $SCRIPTPATH/download/board/zImage $ROOTPATH/boot
+#sudo cp $SCRIPTPATH/download/board/uImage $ROOTPATH/boot
 
+sleep 3
 echo "SYNCING SDCARD WRITES"
 sudo sync
 
