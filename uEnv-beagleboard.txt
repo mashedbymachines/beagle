@@ -1,6 +1,18 @@
 mpurate=auto
+kernel_file=zImage
+fdtfile=omap3-beagle-xm.dtb
+console=ttyO0,115200n8
+mmcroot=/dev/mmcblk0p2 rw
+mmcrootfstype=ext4 rootwait
 
+bootcmd="mmc rescan 0; fatload mmc 0:1 0x80300000 zImage; bootm 0x80300000"
 dvimode="hd720 omapfb.vram=0:8M,1:4M,2:4M"
 vram=16M
 optargs="consoleblank=0"
-console="tty0 console=ttyO2,115200n8"
+console="ttyO2 console=tty0,115200n8"
+
+loadzimage=load mmc ${mmcdev}:${mmcpart} ${loadaddr} ${kernel_file}
+loadfdt=load mmc ${mmcdev}:${mmcpart} ${fdtaddr} /dtbs/${fdtfile}
+
+mmcargs=setenv bootargs console=${console} root=${mmcroot} rootfstype=${mmcrootfstype} ${optargs}
+uenvcmd=run loadzimage; run loadfdt; run mmcargs; bootz ${loadaddr} - ${fdtaddr}
